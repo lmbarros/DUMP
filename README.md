@@ -17,6 +17,9 @@
 
 The "programming things" *per se*.
 
+* Euclidean Algorithm: [Notes](morsels/euclidean_algorithm/euclidean_algorithm.md) | [Code](morsels/euclidean_algorithm/euclidean_algorithm.d)
+
+
 ### Plates
 
 Stuff made with the morsels: examples, demos, visualizations, benchmarks... (and, maybe, a metaphor taken too far.)
