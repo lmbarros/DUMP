@@ -5,6 +5,8 @@
 // Leandro Motta Barros, December 2017
 //
 
+module morsels.eclidean_algorithm;
+
 
 // Implementations used nowadays tend to look like this one.
 int euclidean_algorithm(int a, int b)

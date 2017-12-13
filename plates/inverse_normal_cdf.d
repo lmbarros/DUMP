@@ -5,7 +5,7 @@
 // Leandro Motta Barros, December 2017
 //
 
-import morsels.acklams_inverse_normal_cdf.acklams_inverse_normal_cdf;
+import morsels.acklams_inverse_normal_cdf;
 
 // Calls Gnuplot to plot the output of Acklam's approximation to the inverse
 // normal CDF.

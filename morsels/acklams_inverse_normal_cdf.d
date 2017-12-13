@@ -5,7 +5,8 @@
 // Leandro Motta Barros, December 2017
 //
 
-module morsels.acklams_inverse_normal_cdf.acklams_inverse_normal_cdf;
+module morsels.acklams_inverse_normal_cdf;
+
 
 // This is a pretty straightforward conversion of the pseudocode provided by
 // Peter John Acklam himself in his now-defuct web page.

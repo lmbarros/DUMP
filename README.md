@@ -17,12 +17,12 @@
 
 The "programming things" *per se*.
 
-* Acklam's Inverse Normal CDF: [Notes](morsels/acklams_inverse_normal_cdf/acklams_inverse_normal_cdf.md) | [Code](morsels/acklams_inverse_normal_cdf/acklams_inverse_normal_cdf.d)
-* Euclidean Algorithm: [Notes](morsels/euclidean_algorithm/euclidean_algorithm.md) | [Code](morsels/euclidean_algorithm/euclidean_algorithm.d)
+* Acklam's Inverse Normal CDF: [Notes](morsels/acklams_inverse_normal_cdf.md) | [Code](morsels/acklams_inverse_normal_cdf.d)
+* Euclidean Algorithm: [Notes](morsels/euclidean_algorithm.md) | [Code](morsels/euclidean_algorithm.d)
 
 
 ### Plates
 
 Stuff made with the morsels: examples, demos, visualizations, benchmarks... (and, maybe, a metaphor taken too far.)
 
-* [Inverse Normal CDF](plates/inverse_normal_cdf/inverse_normal_cdf.d): Uses Acklam's Normal Inverse CDF and gnuplot to plot the inverse normal CDF.
+* [Inverse Normal CDF](plates/inverse_normal_cdf.d): Uses Acklam's Normal Inverse CDF and gnuplot to plot the inverse normal CDF.
