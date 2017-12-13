@@ -5,10 +5,10 @@
 // Leandro Motta Barros, December 2017
 //
 
-import morsels.acklams_normal_inverse_cdf.acklams_normal_inverse_cdf;
+import morsels.acklams_inverse_normal_cdf.acklams_inverse_normal_cdf;
 
-// Calls Gnuplot to plot the output of Acklam's approximation to the normal
-// inverse CDF.
+// Calls Gnuplot to plot the output of Acklam's approximation to the inverse
+// normal CDF.
 void main()
 {
     import std.process;
@@ -19,7 +19,7 @@ void main()
     auto x = 0.001;
     while (x < 1.0)
     {
-        gnuPlot.stdin.writeln(x, " ", acklams_normal_inverse_cdf(x));
+        gnuPlot.stdin.writeln(x, " ", acklams_inverse_normal_cdf(x));
         x += 0.001;
     }
 

@@ -1,15 +1,15 @@
 //
 // DUMP: Dump of Unsorted Morsels for Programmers
-// Acklam's Normal Inverse CDF
+// Acklam's Inverse Normal CDF
 //
 // Leandro Motta Barros, December 2017
 //
 
-module morsels.acklams_normal_inverse_cdf.acklams_normal_inverse_cdf;
+module morsels.acklams_inverse_normal_cdf.acklams_inverse_normal_cdf;
 
 // This is a pretty straightforward conversion of the pseudocode provided by
 // Peter John Acklam himself in his now-defuct web page.
-double acklams_normal_inverse_cdf(double p)
+double acklams_inverse_normal_cdf(double p)
 {
     import std.math: sqrt, log;
 
