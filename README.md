@@ -114,9 +114,6 @@ This is just a simple test for the various implementations of the Euclidean Algo
 
 ⟨file:euclidean_algorithm_test.cpp⟩ =
 ```C++
-#include <iostream>
-#include <cstdlib>
-
 ⟨Assert routines for testing⟩
 
 ⟨Original Euclidean Algorithm⟩
