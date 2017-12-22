@@ -10,7 +10,7 @@ Concerning the code itself: given the reference aspect of DUMP, I'd prefer to wr
 
 **What else?** Needless to say, this is by no means a library of ready-to-reuse stuff.
 
-**Licensing.** DUMP is licensed under the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license. In additional to this, the code snippets (everything enclosed in triple backticks) are also licensed under the [MIT license](LICENSE.MIT.md).
+**Licensing.** DUMP is licensed under the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license. The code snippets are also licensed under the [MIT license](LICENSE.MIT.md). See [LICENSE.md](LICENSE.md) for details.
 
 
 ## <a name="morsels"></a>Morsels

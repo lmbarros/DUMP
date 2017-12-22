@@ -2,8 +2,8 @@
 
 ## License
 
-The files composing this repository can be separated in computer code and things made for consumption by humans. Each of these groups of files has its own licensing terms.
+Everything in DUMP is licensed under the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
 
-* **Code:** [MIT](LICENSE.MIT.md). This includes all source code. Files with extensions like, for example, `.d`, `.c` and `.sh` fall into this group.
+However, all the code snippets embedded within the main implementation file (that is, everything enclosed in triple backticks in `README.md`) can be used under a second license if you wish: the [MIT license](LICENSE.MIT.md).
 
-* **Texts and images:** [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). This includes all text files intended for human consumption and all images. For example, files with extensions like `.md`, `.txt`, `.pdf`, `.jpg` and `.png` fall into this group.
+This double licensing scheme will hopefully be nice for anyone wanting to use any of the code found in this repository.
