@@ -252,6 +252,8 @@ int main() {
     dump_assert_equals(euclidean_algorithm_recursive(1234, 4321), 1);
     dump_assert_equals(euclidean_algorithm_recursive(3000, 69), 3);
     dump_assert_equals(euclidean_algorithm_recursive(12, 501), 3);
+
+    return 0;
 }
 ```
 
