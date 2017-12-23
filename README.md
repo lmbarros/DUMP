@@ -118,12 +118,86 @@ double acklams_inverse_normal_cdf(double p) {
 }
 ```
 
+Once we have a way to approximate the inverse normal CDF, we can easily apply the [inverse transform sampling method](https://en.wikipedia.org/wiki/Inverse_transform_sampling) to generate normally-distributed numbers from a given source of uniformly-distributed random numbers.
+
+⟨Acklam’s normal RNG⟩ =
+```C++
+⟨Random number generator types⟩
+
+double acklams_normal_rng(dump_rng_uniform_01 rng) {
+    return acklams_inverse_normal_cdf(rng());
+}
+```
+
 
 #### References
 
 * [Peter John Acklam's home page](http://home.online.no/~pjacklam/notes/invnorm/) (broken link)
 * [Peter John Acklam's home page on the Wayback Machine](https://web.archive.org/web/20151110174102/http://home.online.no/~pjacklam/notes/invnorm/)
 * [A post I made about the algorithm](https://stackedboxes.org/2017/05/01/acklams-normal-quantile-function/)
+
+
+### Box-Muller Transform
+
+**Summary:** Given a source of uniformly-distributed random numbers, generate normally-distributed random numbers.
+
+**AKA:** Box-Muller Transformation.
+
+**See also:** The [Normally-Distributed Random Numbers Demo](#normally-distributed-random-numbers-demo) compares algorithms similar to this one.
+
+**Keywords:** Normal distribution, Gaussian distribution.
+
+#### Notes and Implementation
+
+Published by George Edward Pelham Box and Mervin Edgar Muller in a 1958 paper. The idea was not original, though: Raymond E. A. C. Paley and Norbert Wiener had published it back in 1934 ([Stigler's law](https://en.wikipedia.org/wiki/Stigler%27s_law_of_eponymy) strikes again).
+
+The transformation takes two uniformly-distributed random numbers (`u1` and `u2` in the implementation below) and produces two normally-distributed numbers (`z1` and `z2`).
+
+⟨Box-Muller Transform⟩ =
+```C++
+#include <cassert>
+#include <cmath>
+
+void box_muller_transform(double u1, double u2, double* z0, double* z1) {
+    assert(u1 > 0.0 && u1 < 1.0);
+    assert(u2 > 0.0 && u2 < 1.0);
+
+    *z0 = std::sqrt(-2 * log(u1)) * std::cos(2 * M_PI * u2);
+    *z1 = std::sqrt(-2 * log(u1)) * std::sin(2 * M_PI * u2);
+}
+```
+
+That was an implementation of the transform *per se*. Most implementations we see around are more like the one below. They already include calls to a uniform random number generator (`rng`) and return only one of the two numbers immediately (`z1`); the other one (`z2`) is kept around so that it can be returned right away in the next call.
+
+⟨Box-Muller normal RNG⟩ =
+```C++
+⟨Random number generator types⟩
+
+double box_muller_normal_rng(dump_rng_uniform_01 rng) {
+    static bool hasZ2 = false;
+    static double z2;
+
+    if (hasZ2) {
+        hasZ2 = false;
+        return z2;
+    }
+
+    double z1;
+    double u1 = rng();
+    double u2 = rng();
+    box_muller_transform(u1, u2, &z1, &z2);
+    hasZ2 = true;
+
+    return z1;
+}
+```
+
+
+#### References
+
+* Wikipedia, *[Box-Muller Transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform)*.
+* Eric W. Weisstein, *[Box-Muller Transformation](http://mathworld.wolfram.com/Box-MullerTransformation.html)*. Wolfram's MathWorld.
+* George Edward Pelham Box and Mervin Edgar Muller, *[A Note on the Generation of Random Normal Deviates](https://projecteuclid.org/euclid.aoms/1177706645)*. The Annals of Mathematical Statistics, 1958.
 
 
 ### Euclidean Algorithm
@@ -223,7 +297,7 @@ int main()
 
 This is the result:
 
-![Alt text](images/acklams_inverse_normal_cdf_demo.png "Optional title")
+![A plot of an approximation of the inverse normal cumulative distribution function (AKA probit)](images/acklams_inverse_normal_cdf_demo.png "Acklam's inverse normal CDF approximation")
 
 ### Euclidean Algorithm Test
 
@@ -257,6 +331,47 @@ int main() {
 }
 ```
 
+### <a name="normally-distributed-random-numbers-demo"></a> Normally-Distributed Random Numbers Demo
+
+This plate uses different methods to generate normally-distributed numbers and create a file that can be passed to `gnuplot` to plot the results.
+
+⟨file:normally_distributed_random_numbers_demo.cpp⟩ =
+```C++
+⟨Random number generator types⟩
+⟨Acklam’s inverse normal CDF approximation⟩
+⟨Acklam’s normal RNG⟩
+⟨Box-Muller Transform⟩
+⟨Box-Muller normal RNG⟩
+
+⟨Simple uniform (0,1) RNG⟩
+
+#include <fstream>
+
+void plot(dump_rng_normal rng, std::ofstream& f, const char* title) {
+    f << "plot '-' using (bin($1,binwidth)):(1.0) smooth freq with boxes title '" << title << "'\n";
+
+    for (int i = 0; i < 25000; ++i)
+        f << rng(dump_simple_uniform_01_rng) << '\n';
+
+    f << "e\n"
+      << "pause mouse any\n\n";
+}
+
+int main() {
+    std::ofstream f("normally_distributed_random_numbers_demo.gnuplot");
+
+    f << "binwidth = 0.1\n"
+      << "set boxwidth binwidth\n"
+      << "bin(x, width) = width * floor(x/width) + binwidth/2.0\n\n";
+
+    plot(acklams_normal_rng, f, "Acklam");
+    plot(box_muller_normal_rng, f, "Box-Muller");
+
+    return 0;
+}
+```
+
+
 ## <a name="additives"></a>Additives
 
 Additives are assorted utilities used by the morsels and plates.
@@ -284,4 +399,33 @@ We use a pair of `auto` intermediate variables (`a` and `b`) to make sure that t
             std::exit(1);                                            \
         }                                                            \
     }
+```
+
+### Random numbers
+
+First, let's define some random number generator (RNG) types. A `dump_rng_uniform_01` must return a random number drawn from an uniform distribution in the open interval (0, 1). Similarly, `dump_rng_normal` must return a random number drawn from a standard normal (Gaussian) distribution (mean μ=0, standard deviaton σ=1) from a `dump_rng_uniform_01`.
+
+⟨Random number generator types⟩ =
+```C++
+#ifndef _DUMP_RANDOM_NUMBER_GENERATOR_TYPES_
+#define _DUMP_RANDOM_NUMBER_GENERATOR_TYPES_
+
+typedef double (*dump_rng_uniform_01)();
+typedef double (*dump_rng_normal)(dump_rng_uniform_01);
+
+#endif
+```
+
+⟨Simple uniform (0,1) RNG⟩ =
+```C++
+#include <cstdlib>
+
+double dump_simple_uniform_01_rng() {
+    double u = 0.0;
+    do {
+        u = rand() / (double)RAND_MAX;
+    } while (u <= 0.0 || u >= 1.0);
+
+    return u;
+}
 ```
