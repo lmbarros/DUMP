@@ -2,17 +2,19 @@
 
 **One-sentence description.**
 
-Some interesting stuff.
+**AKA:** Blah.
 
-## See also
+**Complexity:** O(*n*)
 
-## AKA
+**See also:** [Other morsel](#other-morsel)
 
-## Keywords
+**Keywords:** Skeleton, keyhole, lock, public, private.
+
+Some interesting stuff; notes and implementation.
 
 ## References
 
-* [Wikipedia](https://en.wikipedia.org/wiki/Morsel)
+* Wikipedia, *[Morsel](https://en.wikipedia.org/wiki/Morsel)*.
 * Author, *Book title*, Edition. Publisher, Year. (Page 123.)
 * Author, *Paper title*. Conference/Magazine, Year.
 * Eric W. Weisstein, *[Article Name](http://mathworld.wolfram.com/Article.html)*. Wolfram's MathWorld.

@@ -10,7 +10,7 @@ plates: tangle
 	done
 
 tangle:
-	rm -rf generated_sources && halp README.md
+	rm -rf generated_sources && halp morsels/*.md plates/*.md additives/*.md
 
 clean:
 	rm -rf generated_sources
