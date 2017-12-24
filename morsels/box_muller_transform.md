@@ -4,7 +4,7 @@
 
 **AKA:** Box-Muller Transformation.
 
-**See also:** More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../normally_distributed_random_numbers_demo.md).
+**See also:** More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../plates/normally_distributed_random_numbers_demo.md).
 
 **Keywords:** Normal distribution, Gaussian distribution.
 
