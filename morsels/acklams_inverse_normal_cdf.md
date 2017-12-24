@@ -2,7 +2,7 @@
 
 **Calculate a good approximation of the inverse normal CDF at any given point in the (0, 1) interval.**
 
-**See also:** More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../normally-distributed-random-numbers-demo.md).
+**See also:** More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../normally_distributed_random_numbers_demo.md).
 
 **Keywords:** Inverse normal CDF, inverse normal cumulative distribution function, normal distribution quantile function, probit.
 
