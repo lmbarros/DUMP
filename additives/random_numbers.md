@@ -1,5 +1,7 @@
 # Random numbers
 
+## RNG-related types
+
 First, let's define some random number generator (RNG) types. A `dump_rng_uniform_01` must return a random number drawn from an uniform distribution in the open interval (0, 1). Similarly, `dump_rng_normal` must return a random number drawn from a standard normal (Gaussian) distribution (mean μ=0, standard deviaton σ=1) from a `dump_rng_uniform_01`.
 
 ⟨Random number generator types⟩ =
@@ -12,6 +14,8 @@ typedef double (*dump_rng_normal)(dump_rng_uniform_01);
 
 #endif
 ```
+
+## Simple uniform (0, 1) RNG
 
 And here's simple generator of uniformly-distributed random numbers in the (0,1) open interval.
 
@@ -26,5 +30,16 @@ double dump_simple_uniform_01_rng() {
     } while (u <= 0.0 || u >= 1.0);
 
     return u;
+}
+```
+
+We also want a way to randomize our RNG. We don't need to be fancy here.
+
+⟨Simple uniform (0,1) RNG⟩ +=
+```C++
+#include <ctime>
+
+void dump_randomize_simple_uniform_01_rng() {
+    srand(time(0));
 }
 ```
