@@ -43,7 +43,7 @@ Our main code starts by creating the file stream to where we'll write our `gnupl
 
 ⟨Main code for the Normally-Distributed Random Numbers Demo⟩ =
 ```C++
-std::ofstream f("normally_distributed_random_numbers_demo.gnuplot");
+ofstream f("normally_distributed_random_numbers_demo.gnuplot");
 ```
 
 Then we output some `gnuplot` code for plotting histograms.
@@ -82,8 +82,9 @@ Speaking of helper function, here it is. We just have to output some more histog
 ⟨Definitions for the Normally-Distributed Random Numbers Demo⟩ +=
 ```C++
 #include <fstream>
+using namespace std;
 
-void plot(dump_rng_normal rng, std::ostream& os, const char* title) {
+void plot(dump_rng_normal rng, ostream& os, const char* title) {
     os << "plot '-' using (bin($1, binwidth)):(1.0) smooth freq with boxes "
        << "title '" << title << "',\\\n"
 

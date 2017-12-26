@@ -22,6 +22,7 @@ And here's simple generator of uniformly-distributed random numbers in the (0,1)
 ⟨Simple uniform (0,1) RNG⟩ =
 ```C++
 #include <cstdlib>
+using namespace std;
 
 double dump_simple_uniform_01_rng() {
     double u = 0.0;
@@ -38,6 +39,7 @@ We also want a way to randomize our RNG. We don't need to be fancy here.
 ⟨Simple uniform (0,1) RNG⟩ +=
 ```C++
 #include <ctime>
+using namespace std;
 
 void dump_randomize_simple_uniform_01_rng() {
     srand(time(0));

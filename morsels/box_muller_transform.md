@@ -16,13 +16,14 @@ The transformation takes two uniformly-distributed random numbers (`u1` and `u2`
 ```C++
 #include <cassert>
 #include <cmath>
+using namespace std;
 
 void box_muller_transform(double u1, double u2, double* z0, double* z1) {
     assert(u1 > 0.0 && u1 < 1.0);
     assert(u2 > 0.0 && u2 < 1.0);
 
-    *z0 = std::sqrt(-2 * log(u1)) * std::cos(2 * M_PI * u2);
-    *z1 = std::sqrt(-2 * log(u1)) * std::sin(2 * M_PI * u2);
+    *z0 = sqrt(-2 * log(u1)) * cos(2 * M_PI * u2);
+    *z1 = sqrt(-2 * log(u1)) * sin(2 * M_PI * u2);
 }
 ```
 

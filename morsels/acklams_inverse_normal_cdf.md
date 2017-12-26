@@ -16,6 +16,7 @@ The following implementation is a pretty straightforward conversion of the pseud
 ```C++
 #include <cmath>
 #include <cassert>
+using namespace std;
 
 double acklams_inverse_normal_cdf(double p) {
     assert(p > 0.0 && p < 1.0);
@@ -52,7 +53,7 @@ double acklams_inverse_normal_cdf(double p) {
 
     // Rational approximation for lower region
     if (p < pLow) {
-        const double q = std::sqrt(-2 * std::log(p));
+        const double q = sqrt(-2 * log(p));
         return (((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) /
             ((((d1 * q + d2) * q + d3) * q + d4) * q + 1);
     }
@@ -67,7 +68,7 @@ double acklams_inverse_normal_cdf(double p) {
 
     // Rational approximation for upper region
     else {
-        const double q = std::sqrt(-2 * std::log(1-p));
+        const double q = sqrt(-2 * log(1-p));
         return -(((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) /
             ((((d1 * q + d2) * q + d3) * q + d4) * q + 1);
     }

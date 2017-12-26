@@ -8,17 +8,18 @@ We use a pair of `auto` intermediate variables (`a` and `b`) to make sure that t
 ```C++
 #include <iostream>
 #include <cstdlib>
+using namespace std;
 
 #define dump_assert_equals(exprA, exprB)                             \
     {                                                                \
         auto a = (exprA);                                            \
         auto b = (exprB);                                            \
-        std::cout << #exprA << " == " << #exprB << "? ";             \
+        cout << #exprA << " == " << #exprB << "? ";                  \
         if (a == b) {                                                \
-            std::cout << "[Yup! " << a << " == " << b << "]\n";      \
+            cout << "[Yup! " << a << " == " << b << "]\n";           \
         } else {                                                     \
-            std::cout << "[Nope! " << a << " != " << b << "]\n";     \
-            std::exit(1);                                            \
+            cout << "[Nope! " << a << " != " << b << "]\n";          \
+            exit(1);                                                 \
         }                                                            \
     }
 ```

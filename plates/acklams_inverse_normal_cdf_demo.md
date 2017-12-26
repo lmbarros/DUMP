@@ -5,12 +5,13 @@ This is a simple demonstration of the [inverse normal CDF approximation algorith
 ⟨file:acklams_inverse_normal_cdf_demo.cpp⟩ =
 ```C++
 #include <fstream>
+using namespace std;
 
 ⟨Acklam’s inverse normal CDF approximation⟩
 
 int main()
 {
-    std::ofstream f("acklams_inverse_normal_cdf_demo.gnuplot");
+    ofstream f("acklams_inverse_normal_cdf_demo.gnuplot");
 
     f << "plot '-' with lines title 'Acklam’s inverse normal CDF approximation'\n";
 
