@@ -85,7 +85,7 @@ Speaking of helper function, here it is. We just have to output some more histog
 
 void plot(dump_rng_normal rng, std::ostream& os, const char* title) {
     os << "plot '-' using (bin($1, binwidth)):(1.0) smooth freq with boxes "
-       << "title '" << title << "',\\\n"normally_distributed_random_numbers_demo.png
+       << "title '" << title << "',\\\n"
 
        << "   [-4:4] normal(x) title 'Reference normal curve'\n";
 
