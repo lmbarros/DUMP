@@ -6,7 +6,7 @@
 plates: tangle
 	cd generated_sources && for f in *.cpp; do \
 		executable=`basename $$f .cpp`; \
-		g++ -Wall -o $$executable $$f; \
+		g++ -Wall -O3 -o $$executable $$f; \
 	done
 
 tangle:
