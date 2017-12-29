@@ -35,6 +35,8 @@ Next, we'll use the RNGs defined in morsels -- these are the different methods w
 
 ⟨Box-Muller Transform⟩
 ⟨Box-Muller normal RNG⟩
+
+⟨Polar Method normal RNG⟩
 ```
 
 ## The interesting part
@@ -75,6 +77,7 @@ And we finally create the actual plots by calling a helper function. In each cal
 ```C++
 plot(acklams_normal_rng, f, "Acklam");
 plot(box_muller_normal_rng, f, "Box-Muller");
+plot(polar_method_normal_rng, f, "Polar Method");
 ```
 
 Speaking of helper function, here it is. We just have to output some more histogram-plotting code and call a RNG multiple times to generate the data to be plotted. Notice that use DUMP's `dump_simple_uniform_01_rng()` function as the underlying source of uniformly-distributed numbers.

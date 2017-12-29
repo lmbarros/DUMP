@@ -54,6 +54,21 @@ int box_muller_draw() {
 }
 ```
 
+Same for the Ploar Method.
+
+⟨Normally-Distributed Random Numbers Benchmark definitions⟩ +=
+```C++
+⟨Polar Method normal RNG⟩
+
+double polar_method_fake() {
+    return polar_method_normal_rng(dump_fake_uniform_01_rng);
+}
+
+int polar_method_draw() {
+    return (int)polar_method_fake();
+}
+```
+
 And here's our main code: we just initialize the fake RNG and benchmark the desired functions.
 
 ⟨Main code for the Normally-Distributed Random Numbers Benchmark⟩ =
@@ -62,6 +77,7 @@ dump_fake_uniform_01_rng_init();
 
 dump_benchmark("Acklam's", acklams_draw);
 dump_benchmark("Box-Muller", box_muller_draw);
+dump_benchmark("Polar Method", polar_method_draw);
 ```
 
 ## Results
@@ -69,6 +85,7 @@ dump_benchmark("Box-Muller", box_muller_draw);
 For those curious, this is what I get from an Intel Core i5-4460 @ 3.20GHz:
 
 ```
-[8.54127e+07 calls/second] Acklam's
-[2.18662e+07 calls/second] Box-Muller
+[8.45665e+07 calls/second] Acklam's
+[2.13757e+07 calls/second] Box-Muller
+[4.68149e+07 calls/second] Polar Method
 ```
