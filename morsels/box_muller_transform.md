@@ -22,8 +22,11 @@ void box_muller_transform(double u1, double u2, double* z0, double* z1) {
     assert(u1 > 0.0 && u1 < 1.0);
     assert(u2 > 0.0 && u2 < 1.0);
 
-    *z0 = sqrt(-2 * log(u1)) * cos(2 * M_PI * u2);
-    *z1 = sqrt(-2 * log(u1)) * sin(2 * M_PI * u2);
+    double r = sqrt(-2 * log(u1));
+    double theta = 2 * M_PI * u2;
+
+    *z0 = r * cos(theta);
+    *z1 = r * sin(theta);
 }
 ```
 
