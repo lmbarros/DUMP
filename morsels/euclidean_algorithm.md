@@ -2,10 +2,6 @@
 
 **Given two numbers, find their greatest common divider (GCD).**
 
-**AKA:** Euclid's Algorithm.
-
-**Keywords:** GCD, greatest common divisor, GCF, greatest common factor HCF, highest common factor, GCM, greatest common measure, HCD, highest common divisor.
-
 Popularized by Euclid's Elements (circa 300 BC) but possibly discovered at least a handful of decades earlier, it is one of the oldest algorithms still regularly used.
 
 Here's a good way to visualize this algorithm in action. You want to compute the GCD of two numbers, *a* and *b*. Start picturing a rectangle measuring *a*×*b*. Finding the GCD is equivalent to finding the size of the largest square tile that could be used to fully cover this rectangle.
@@ -52,6 +48,12 @@ int euclidean_algorithm_recursive(int a, int b) {
         return euclidean_algorithm_recursive(b, a % b);
 }
 ```
+
+## Nutrition Facts
+
+**AKA:** Euclid's Algorithm.
+
+**Keywords:** GCD, greatest common divisor, GCF, greatest common factor HCF, highest common factor, GCM, greatest common measure, HCD, highest common divisor.
 
 ## References
 

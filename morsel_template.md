@@ -2,15 +2,17 @@
 
 **One-sentence description.**
 
+Some interesting stuff; notes and implementation.
+
+## Nutrition Facts
+
 **AKA:** Blah.
 
 **Complexity:** O(*n*)
 
-**See also:** [Other morsel](#other-morsel)
+**See also:** [Other morsel](other_morsel.md)
 
 **Keywords:** Skeleton, keyhole, lock, public, private.
-
-Some interesting stuff; notes and implementation.
 
 ## References
 

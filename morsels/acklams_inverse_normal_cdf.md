@@ -2,10 +2,6 @@
 
 **Calculate a good approximation of the inverse normal CDF at any given point in the (0, 1) interval.**
 
-**See also:** More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../plates/normally_distributed_random_numbers_demo.md).
-
-**Keywords:** Inverse normal CDF, inverse normal cumulative distribution function, normal distribution quantile function, probit.
-
 The inverse cumulative distribution function (CDF) of the normal distribution does not have a closed form. This algorithm provides an approximation of this function, which seems to be quite accurate (see details in the references). It was devised by Peter John Acklam in the early 2000s (maybe late 1990s, I am estimating these dates), who posted it to his personal web page.
 
 One use of this function is to generate random numbers following a normal (Gaussian) distribution. There are many other uses, I am sure, but I cannot comment about them.
@@ -85,6 +81,12 @@ double acklams_normal_rng(dump_rng_uniform_01 rng) {
     return acklams_inverse_normal_cdf(rng());
 }
 ```
+
+## Nutrition Facts
+
+**See also:** More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../plates/normally_distributed_random_numbers_demo.md).
+
+**Keywords:** Inverse normal CDF, inverse normal cumulative distribution function, normal distribution quantile function, probit.
 
 ## References
 

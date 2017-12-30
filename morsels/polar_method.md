@@ -2,12 +2,6 @@
 
 **Given a source of uniformly-distributed random numbers, generate normally-distributed random numbers.**
 
-**AKA:** Marsaglia polar method.
-
-**See also:** This is a variation of the [Box-Muller Transform](box_muller_transform.md). More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../plates/normally_distributed_random_numbers_demo.md).
-
-**Keywords:** Normal distribution, Gaussian distribution.
-
 This method was, it seems, initially proposed by the great George Marsaglia along with T. A. Bray, in the 1964 paper *A Convenient Method for Generating Normal Variables*.
 
 The Polar Method is a variation of the [Box-Muller Transform](box_muller_transform,md). Instead of directly creating the angle and magnitude of a vector and then projecting it to the axes, this method goes through a different route. It first create a point lying in the unit circle (and it does so by trial and error, rejecting points that fall outside it, in the `do`/`while` loop).
@@ -44,6 +38,14 @@ double polar_method_normal_rng(dump_rng_uniform_01 rng) {
     }
 }
 ```
+
+## Nutrition Facts
+
+**AKA:** Marsaglia polar method.
+
+**See also:** This is a variation of the [Box-Muller Transform](box_muller_transform.md). More stuff we can use to generate normally-distributed random numbers are seen in the [Normally-Distributed Random Numbers Demo](../plates/normally_distributed_random_numbers_demo.md).
+
+**Keywords:** Normal distribution, Gaussian distribution.
 
 ## References
 
