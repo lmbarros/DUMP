@@ -6,7 +6,7 @@
 
 **Keywords:** GCD, greatest common divisor, GCF, greatest common factor HCF, highest common factor, GCM, greatest common measure, HCD, highest common divisor.
 
-Some interestinPopularized by Euclid's Elements (circa 300 BC) but possibly discovered at least a handful of decades earlier, it is one of the oldest algorithms still regularly used.
+Popularized by Euclid's Elements (circa 300 BC) but possibly discovered at least a handful of decades earlier, it is one of the oldest algorithms still regularly used.
 
 Here's a good way to visualize this algorithm in action. You want to compute the GCD of two numbers, *a* and *b*. Start picturing a rectangle measuring *a*×*b*. Finding the GCD is equivalent to finding the size of the largest square tile that could be used to fully cover this rectangle.
 
