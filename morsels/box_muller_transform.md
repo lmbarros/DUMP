@@ -10,7 +10,7 @@
 
 Published by George Edward Pelham Box and Mervin Edgar Muller in a 1958 paper. The idea was not original, though: Raymond E. A. C. Paley and Norbert Wiener had published it back in 1934 ([Stigler's law](https://en.wikipedia.org/wiki/Stigler%27s_law_of_eponymy) strikes again).
 
-The transformation takes two uniformly-distributed random numbers (`u1` and `u2` in the implementation below) and produces two normally-distributed numbers (`z1` and `z2`).
+How exactly this works is beyond my comprehension, but the idea is that the transformation takes two uniformly-distributed random numbers in the (0, 1) interval (`u1` and `u2` in the implementation below). These numbers are converted to a vector of length `r` and angle `theta`. The projections of this vector in either axis (`z1` and `z2`) will be normally-distributed. There is a [very nice visualization](https://en.wikipedia.org/wiki/File:Box-Muller_transform_visualisation.svg) of this process in Wikipedia.
 
 ⟨Box-Muller Transform⟩ =
 ```C++
