@@ -14,7 +14,7 @@ int main() {
 }
 ```
 
-We'll need to use DUMP's benchmarking utlities and our fake uniform random number generator (RNG).
+We'll need to use DUMP's benchmarking utilities and our fake uniform random number generator (RNG).
 
 ⟨Normally-Distributed Random Numbers Benchmark definitions⟩ =
 ```C++
@@ -54,7 +54,7 @@ int box_muller_draw() {
 }
 ```
 
-Same for the Ploar Method.
+Same for the Polar Method.
 
 ⟨Normally-Distributed Random Numbers Benchmark definitions⟩ +=
 ```C++
@@ -69,6 +69,22 @@ int polar_method_draw() {
 }
 ```
 
+Same for Ziggurat Algorithm:
+⟨Normally-Distributed Random Numbers Benchmark definitions⟩ +=
+```C++
+⟨Ziggurat Algorithm normal RNG⟩
+
+double ziggurat_algorithm_fake() {
+    return ziggurat_algorithm_normal_rng(dump_fake_uniform_01_rng);
+}
+
+int ziggurat_algorithm_draw() {
+    return (int)ziggurat_algorithm_fake();
+}
+```
+
+
+
 And here's our main code: we just initialize the fake RNG and benchmark the desired functions.
 
 ⟨Main code for the Normally-Distributed Random Numbers Benchmark⟩ =
@@ -78,6 +94,7 @@ dump_fake_uniform_01_rng_init();
 dump_benchmark("Acklam's", acklams_draw);
 dump_benchmark("Box-Muller", box_muller_draw);
 dump_benchmark("Polar Method", polar_method_draw);
+dump_benchmark("Ziggurat Algorithm", ziggurat_algorithm_draw);
 ```
 
 ## Results
