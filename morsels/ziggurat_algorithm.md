@@ -80,7 +80,7 @@ In the code below, `i` is the section (either a rectangle or the base strip).
 ⟨Random number generator types⟩
 ⟨Define the normal unnormalized PDF⟩
 
-#include <cstdint>
+#include <climits>
 using namespace std;
 
 double ziggurat_algorithm_normal_rng(dump_rng_uniform_01 rng) {
