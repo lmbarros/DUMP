@@ -18,14 +18,10 @@ In this implementation, we'll use the Ziggurat Algorithm to generate normally-di
 
 Here, we are using 256 rectangles, as Marsaglia suggests in his 2000 paper. That magic number (3.654…) is found on the same paper: it is the position of the right edge of our first triangle. Using it, we'll divide the PDF into 256 portions of area equals to 0.0049… (another number from the paper).
 
-⟨Define normal unnormalized PDF⟩ +=
+⟨Define the inverse normal unnormalized PDF⟩ =
 ```C++
 #include <cmath>
 using namespace std;
-
-double normal_unnormalized_pdf(double x) {
-    return exp((-x*x)/2);
-}
 
 double inv_normal_unnormalized_pdf(double x) {
     return sqrt(-2.0*log(x));
@@ -34,7 +30,8 @@ double inv_normal_unnormalized_pdf(double x) {
 
 ⟨file:zigurat_algorithm_preprocess.cpp⟩ =
 ```C++
-⟨Define normal unnormalized PDF⟩
+⟨Define the normal unnormalized PDF⟩
+⟨Define the inverse normal unnormalized PDF⟩
 
 #include <cstdio>
 
@@ -81,7 +78,7 @@ In the code below, `i` is the section (either a rectangle or the base strip).
 ⟨Ziggurat Algorithm normal RNG⟩ =
 ```C++
 ⟨Random number generator types⟩
-⟨Define normal unnormalized PDF⟩
+⟨Define the normal unnormalized PDF⟩
 
 #include <cstdint>
 using namespace std;

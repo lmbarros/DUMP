@@ -83,6 +83,20 @@ int ziggurat_algorithm_draw() {
 }
 ```
 
+Same for the Naïve Rejection Sampling.
+
+⟨Normally-Distributed Random Numbers Benchmark definitions⟩ +=
+```C++
+⟨Naïve Rejection Sampling normal RNG⟩
+
+double naive_rejection_sampling_fake() {
+    return naive_rejection_sampling_normal_rng(dump_fake_uniform_01_rng);
+}
+
+int naive_rejection_sampling_draw() {
+    return (int)naive_rejection_sampling_fake();
+}
+```
 
 
 And here's our main code: we just initialize the fake RNG and benchmark the desired functions.
@@ -95,9 +109,12 @@ dump_benchmark("Acklam's", acklams_draw);
 dump_benchmark("Box-Muller", box_muller_draw);
 dump_benchmark("Polar Method", polar_method_draw);
 dump_benchmark("Ziggurat Algorithm", ziggurat_algorithm_draw);
+dump_benchmark("Naive Rejection Sampling", naive_rejection_sampling_draw);
 ```
 
 ## Results
+
+
 
 For those curious, this is what I get from an Intel Core i5-4460 @ 3.20GHz:
 
@@ -105,4 +122,14 @@ For those curious, this is what I get from an Intel Core i5-4460 @ 3.20GHz:
 [8.45665e+07 calls/second] Acklam's
 [2.13757e+07 calls/second] Box-Muller
 [4.68149e+07 calls/second] Polar Method
+```
+
+On an Intel Atom Z3775 @ 1.46GHz GCC -O3, version 7.2.0, Windows 10, 32-bits:
+
+```
+[1.39763e+007 calls/second] Acklam's
+[6.30914e+006 calls/second] Box-Muller
+[1.04623e+007 calls/second] Polar Method
+[2.13579e+007 calls/second] Ziggurat Algorithm
+[196421 calls/second] Naive Rejection Sampling
 ```
