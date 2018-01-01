@@ -114,17 +114,20 @@ dump_benchmark("Naive Rejection Sampling", naive_rejection_sampling_draw);
 
 ## Results
 
+Here are some examples, on a few different CPUs.
 
-
-For those curious, this is what I get from an Intel Core i5-4460 @ 3.20GHz:
+On an Intel Core i5-4460 @ 3.20GHz, GCC version 7.2.1 (`-O3`) Linux, 64-bits:
 
 ```
-[8.45665e+07 calls/second] Acklam's
-[2.13757e+07 calls/second] Box-Muller
-[4.68149e+07 calls/second] Polar Method
+[8.70919e+07 calls/second] Acklam's
+[2.7917e+07 calls/second] Box-Muller
+[4.77026e+07 calls/second] Polar Method
+[8.25092e+07 calls/second] Ziggurat Algorithm
+[1.18812e+06 calls/second] Naive Rejection Sampling
+
 ```
 
-On an Intel Atom Z3775 @ 1.46GHz GCC -O3, version 7.2.0, Windows 10, 32-bits:
+On an Intel Atom Z3775 @ 1.46GHz, GCC version 7.2.0 (`-O3`), Windows 10, 32-bits:
 
 ```
 [1.39763e+007 calls/second] Acklam's
