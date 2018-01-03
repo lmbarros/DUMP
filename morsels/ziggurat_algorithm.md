@@ -168,7 +168,7 @@ int main() {
 }
 ```
 
-That last `for` loop was just for sanity checking; I wanted to see the generated numbers and be sure that all areas were indeed equal (and equal to ou magic `a`).
+That last `for` loop was just for sanity checking; I wanted to see the generated numbers and be sure that all areas were indeed equal (and equal to our magic `a`).
 
 Cool, so this program generates the numbers we needed to build our ziggurat. This was the last bit we need to complete our implementation.
 
