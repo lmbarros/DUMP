@@ -10,11 +10,11 @@ To understand how the algorithm works, start by understanding how the [naïve re
 
 Let's take a closer look at this picture. The most important thing to notice is that these rectangles resemble the ancient Mesopotamian [ziggurats](https://en.wikipedia.org/wiki/Ziggurat). In addition of being a nice guy and all his technical and scientific contributions, George Marsaglia was also a master at naming things!
 
-Next, notice that we are using just the half of the normal PDF. It turns out that the Ziggurat Algorithm, by itself, works only for decreasing PDFs (like the exponential distribution). However, we can easily handle [symmetric unimodal](https://en.wikipedia.org/wiki/Unimodality#Unimodal_probability_distribution) PDFs as the normal distribution by applying Ziggurat only to its decreasing half, and then swapping the signal of the resulting random numbers with a 50% probability. That's what we are doing in our example.
+Next, notice that we are using just half of the normal PDF. It turns out that the Ziggurat Algorithm, by itself, works only for decreasing PDFs (like the exponential distribution). However, we can easily handle [symmetric unimodal](https://en.wikipedia.org/wiki/Unimodality#Unimodal_probability_distribution) PDFs (as the normal distribution) by applying Ziggurat only to its decreasing half, and then swapping the signal of the resulting random numbers with a 50% probability. That's what we are doing in our example.
 
 Now, notice that we created a total of five segments, numbered from zero to four. Segment 0 is special: it is composed of a rectangle, plus a tail that extends to infinity (though, notice that the segment area is finite!). This segment matches the PDF curve exactly: no part of it is "above" the curve.
 
-Segments 1 to 4 are just rectangles. Here, we don't have perfect matches: the rightmost part of these rectangles are above the PDF. Nevertheless, we can easily see that there are "sub-rectangles" which are completely underneath the PDF. (This is not strictly true for our topmost rectangle: no slice of it is completely under the curve. Anyway, we'll pretend that there is a degenerate zero-with rectangle to the left of the Rectangle 4 we see in the picture. Yeah, we are just lying to ourselves, but this allows to deal with Segment 4 just like we deal with all other nonzero segments.)
+Segments 1 to 4 are just rectangles. Here, we don't have perfect matches: the rightmost part of these rectangles are partially above the PDF. Nevertheless, we can easily see that there are "sub-rectangles" which are completely underneath the PDF. (This is not strictly true for our topmost rectangle: no slice of it is completely under the curve. Anyway, we'll pretend that there is a degenerate zero-with rectangle to the left of the Rectangle 4 we see in the picture. Yeah, we are just lying to ourselves, but this allows to deal with Segment 4 just like we deal with all other nonzero segments.)
 
 One crucial detail is that all five segments, from Segment 0 to Segment 4, have exactly the same area. Just to be clear: we are talking the area of the segment itself, *not* about the PDF area that happens to intersect the segment. (By the way, don't try to measure my figure to check if the areas are the same. They aren't. Please focus on the concepts and pretend that the segments I've draw have all the same area.)
 
@@ -22,9 +22,9 @@ And the final point to highlight is that in real implementations we use much mor
 
 ### The Ziggurat Algorithm itself
 
-Let's ignore for a moment how to build the ziggurat. In other words, let's ignore how to determine the *x*s and *y*s marked in the figure, and just assume that magically we have arrays `x[]` and `y[]` with the proper values. Also, if you see `n` in the code below, it is the number of segments we are using (which happens to be 256, but doesn't really matter).
+Let's ignore for a moment how to build the ziggurat. In other words, let's ignore how to determine the *x*s and *y*s marked in the figure, and just assume that magically we have arrays `x[]` and `y[]` with the proper values. Also, if you see `n` in the code below, it is the number of segments we are using (which happens to be 256, but this doesn't really matter much).
 
-The structure is simple: an infinite loop in which we try random points until we find one that is not rejected (in which case it is returned). We generate one uniformly-distributed random integer number (`u0`) and use 8 of its bits to select one of the segments (`i`). We use one additional of its bits to determine the sign of the number to be returned (recall the discussion above, about symmetric unimodal distributions). Then we handle the selected segment, remembering that Segment 0 needs special handling (mostly because of the tail).
+The algorithm structure follows what we expect from a rejection sampling algorithm: an infinite loop in which we try random points until we find one that is not rejected (in which case it is returned). We generate one uniformly-distributed random integer `u0` and use 8 of its bits to select one of the segments (`i`). We use one additional of its bits to determine the sign of the number to be returned (recall the discussion above, about symmetric unimodal distributions). Then we handle the selected segment, remembering that Segment 0 needs special handling (mostly because of the tail).
 
 ⟨Ziggurat Algorithm normal RNG⟩ =
 ```C++
@@ -53,9 +53,9 @@ double ziggurat_algorithm_normal_rng(dump_rng_uniform_01 rng) {
 
 Let's handle first the segments greater than zero. We start by drawing (from a uniform distribution) a number `u1` in the horizontal range of the `i`-th rectangle, which is between zero and `x[i-1]` (you can follow these steps looking at the figure). If this number is in the part of the rectangle that is fully under the PDF curve, we accept this number and simply return it (with the random signal we defined previously).
 
-Here's one interesting thing: in a rejection sampling method like the Ziggurat Algorithm, what we do is to randomly create points over the PDF plot, right? We generated the *x* coordinate of this point (it's the `u1` above), but where is the *y* coordinate? When we randomly selected one of the segments (`i`), we were doing a low-resolution selection of the *y* coordinate.
+Here's one interesting thing: in a rejection sampling method like the Ziggurat Algorithm, what we do is to randomly create points over the PDF plot, right? We generated the *x* coordinate of this point (it's the `u1` above), but where is the *y* coordinate? The answer is that, when we randomly selected one of the segments (`i`), we were doing a low-resolution selection of the *y* coordinate.
 
-Now, what if we are unlucky and `u1` falls in the region that is partially above the PDF? Then we need to generate a high-resolution *y* coordinate for our random point. That's the `yy` in the code below. We simply check if `yy` is under the PDF curve at our *x* coordinate `u1`.
+Now, what if we are unlucky and `u1` falls in the region that is partially above the PDF? Then we reach a slow path and need to generate a high-resolution *y* coordinate for our random point. That's the `yy` in the code below. We simply check if `yy` is under the PDF curve at our *x* coordinate `u1`.
 
 ⟨Ziggurat: Handle Segments greater than 0⟩ =
 ```C++
@@ -70,11 +70,11 @@ if (u1 < x[i]) {
 }
 ```
 
-Segment 0 is a bit more complicated. We cannot simply generate a number in the whole possible *x* range of this segment because Segment 0 is infinitely wide. However, the area of Segment 0 is finite, so we can use  it instead. Later I'll say a few words about how to determine this area; for now, just assume `a` contains this value.
+Segment 0 is a bit more complicated. We cannot simply generate a number in the whole possible *x* range of this segment because Segment 0 is infinitely wide. However, the area of Segment 0 is finite, so we can use  it instead. Later I'll say a few words about how to determine this area; for now, just assume it is `a`.
 
 We start by generating a uniformly-distributed number `u1` between 0 and the area of our segments, `a`. If this number is smaller than the area of the rectangle (`x[0] * y[0]`), then we know for sure that we are under the PDF curve: we can just convert random the area `u1` to a proper *x* coordinate and return it.
 
-Otherwise, we are on the tail, which needs a very special handling. I don't really understand how this works, I am just doing what the Ziggurat Algorithm paper says to do (Dr. Marsaglia wrote a whole paper just about this part).
+Otherwise, we are on the tail, which needs a very special handling in another slow path. I don't really understand how this works, I am just doing what the Ziggurat Algorithm paper says to do (Dr. Marsaglia wrote a whole paper, which I didn't read, just about this part).
 
 ⟨Ziggurat: Handle Segment 0⟩ =
 ```C++
@@ -98,11 +98,11 @@ Oh, you still have some questions? Like, why must all segments have the same are
 
 ## Building the ziggurat
 
-OK, everything we did so far was relatively straightforward, but a real implementation needs all the `x[]`, `y[]` and `a` values. These values depend on the number of boxes (`n`) you decide to use. Looking again at the figure, try to convince yourself that it is reasonably easy to find all the `x[]` and `y[]` values as long as you know:
+OK, everything we did so far was relatively straightforward, but a real implementation needs all the `x[]`, `y[]` and `a` values. These values depend on the number of boxes (`n`) you decide to use. Looking again at the figure, try to convince yourself that it is reasonably easy to find all the `x[]` and `y[]` values as long as we know:
 
-* The inverse of your PDF.
+* The inverse of our PDF.
 * The area, `a`.
-* The horizontal coordinate of the rightmost rectangle, `x[0]`.
+* The horizontal rightmost coordinate of the rightmost rectangle, `x[0]`.
 
 The inverse PDF is not such a big deal (took me some time to remember how to do it, but anyway):
 
